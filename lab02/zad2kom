@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+int main()
+{
+int x=-1;
+int x2=0;
+
+asm volatile (
+      ".intel_syntax noprefix;"
+      "mov eax, %1;"   //do eax ladujemy argument x
+      "shl eax;"       //przesuniecie w lewo ustawia flage c i tam wkladany jest najstarszy bit argument SHL czyli eax
+      "jc zapalony;"     // testujemy bit c jesli zapalony to skaczymy jesli nie to przeskakujemy do nastepnej instrukcji (po tej skok do instreukicji zapalony:)
+      "mov eax,17;"      
+      "jmp koniec;"    // intrukcja bezwarunkowa skacze do etykiety koniec
+      "zapalony:"
+      "mov eax,12;"
+      "koniec:"
+      "mov %0,eax;"
+      //"add eax,eax;"        te 2 linie odpowiadaja za mnozenie przez 2
+      //"mov %0,eax;"
+      ".att_syntax prefix;"
+      :"=r" (x2)
+      :"r" (x)
+      :"eax"
+       
+);
+
+
+printf("x=%d  x2=%d", x, x2);
+
+return 0;
+}
