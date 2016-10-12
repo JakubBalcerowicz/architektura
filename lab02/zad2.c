@@ -8,10 +8,10 @@ int x2=0;
 asm volatile (
       ".intel_syntax noprefix;"
       "mov eax, %1;"
-      "mov ebx,0;"     //wyzerowanie ebx
+      "mov ebx,0;"     //wyzerowanie ebx      (xor ebx,ebx)  zeruje ebx
       "shl eax;"     //przeusnbice o 1 w lewo
       "jnc a1;"      //jnc jezli bit jets nie zaplony skacze do a1
-      "add ebx,1;"
+      "add ebx,1;"    // inc ebx; dodaje 1 ebx
       "a1:"
       "shl eax;"
       "jnc a2;"
